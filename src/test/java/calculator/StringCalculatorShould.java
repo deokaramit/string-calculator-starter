@@ -1,6 +1,8 @@
 package calculator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -28,5 +30,25 @@ class StringCalculatorShould {
     public final void newLineBetweenNumbersReturnTheirSums() {
         StringCalculator stringCalculator = new StringCalculator();
         assertEquals(1 + 2, stringCalculator.add("//;\n1;2"));
+    }
+
+    @Test
+    public final void whenNegativeNumberThenThrowRuntimeException() {
+        StringCalculator stringCalculator = new StringCalculator();
+        Exception exception = assertThrows(RuntimeException.class, () -> stringCalculator.add("-1,3,4"));
+        assertEquals("Negatives not allowed", exception.getMessage());
+    }
+
+    @Test
+    public final void whenMultipleNegativeNumbersThenThrowRuntimeException() {
+        StringCalculator stringCalculator = new StringCalculator();
+        RuntimeException exception = null;
+        try {
+            stringCalculator.add("-1, 2, 3, -4");
+        } catch (RuntimeException e) {
+            exception = e;
+        }
+        assertNotNull(exception);
+        assertEquals("Negatives not allowed: [-1, -4]", exception.getMessage());
     }
 }
