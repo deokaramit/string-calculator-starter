@@ -23,4 +23,10 @@ class StringCalculatorShould {
         StringCalculator stringCalculator = new StringCalculator();
         assertEquals(12 + 46, 13, stringCalculator.add("12,46,13"));
     }
+
+    @Test
+    public final void newLineBetweenNumbersReturnTheirSums() {
+        StringCalculator stringCalculator = new StringCalculator();
+        assertEquals(1 + 2 + 3, stringCalculator.add("1\n2,3"));
+    }
 }
