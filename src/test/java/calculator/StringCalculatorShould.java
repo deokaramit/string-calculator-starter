@@ -57,4 +57,11 @@ class StringCalculatorShould {
         StringCalculator stringCalculator = new StringCalculator();
         assertEquals(2, stringCalculator.add("2,1001"));
     }
+
+    @Test
+    public final void delimitersCanAnyLengthWithCustomFormat() {
+        StringCalculator stringCalculator = new StringCalculator();
+        assertEquals(6, stringCalculator.extractDelimiter("//[***]\n1***2***3"));
+    }
+
 }

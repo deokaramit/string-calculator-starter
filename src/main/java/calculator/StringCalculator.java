@@ -2,6 +2,8 @@ package calculator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 class StringCalculator {
 
@@ -14,6 +16,28 @@ class StringCalculator {
             numbersWithoutDelimiter = numbers.substring(numbers.indexOf("\n") + 1);
         }
         return add(numbersWithoutDelimiter, delimiter);
+    }
+
+    public int extractDelimiter(String numbers) {
+        Pattern p = Pattern.compile("^//(.+)\\n(.*)$");
+        Matcher m = p.matcher(numbers);
+        if (!m.matches()) {
+            System.out.println("Input string not valid");
+            return 0;
+        }
+
+        String delimString = m.group(1);
+        String searchString = m.group(2);
+
+        Pattern pDelim = Pattern.compile("\\[([^\\]]+)\\]");
+        Matcher mDelim = pDelim.matcher(delimString);
+
+        String delimiters = "";
+        while (mDelim.find()) {
+            delimiters += (Pattern.quote(mDelim.group(1)) + "|");
+        }
+        delimiters = delimiters.substring(0, delimiters.length() - 1);
+        return add(searchString, delimiters);
     }
 
     public int add(String input, String delimiter) {
