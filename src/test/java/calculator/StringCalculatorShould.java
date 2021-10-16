@@ -19,7 +19,7 @@ class StringCalculatorShould {
     }
 
     @Test
-    public final void moreThan2NumbersThenExceptionIsThrown() {
+    public final void moreThan2NumbersThenHandleThem() {
         StringCalculator stringCalculator = new StringCalculator();
         assertEquals(12 + 46, 13, stringCalculator.add("12,46,13"));
     }
