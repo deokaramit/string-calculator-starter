@@ -61,7 +61,13 @@ class StringCalculatorShould {
     @Test
     public final void delimitersCanAnyLengthWithCustomFormat() {
         StringCalculator stringCalculator = new StringCalculator();
-        assertEquals(6, stringCalculator.extractDelimiter("//[***]\n1***2***3"));
+        assertEquals(33, stringCalculator.extractDelimiter("//[*][%]\n1*2%3"));
+    }
+
+    @Test
+    public final void multipleDelimitersCanAnyLengthWithCustomFormat() {
+        StringCalculator stringCalculator = new StringCalculator();
+        assertEquals(33, stringCalculator.checkMultipleDelemiter("//[***][??][####]\n1***2??3,4,5\n8####10"));
     }
 
 }

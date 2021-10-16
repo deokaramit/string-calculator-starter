@@ -7,6 +7,49 @@ import java.util.regex.Pattern;
 
 class StringCalculator {
 
+    private final static String DEFAULT_DELIMITERS = ",|\n";
+
+    private final static String[] REGEX_LITERALS = new String[] { "?", "*", "#" };
+
+    private final static Pattern delimiterPattern = Pattern.compile("\\[(.*?)\\]");
+
+    private static String parseInputString(final String numbersWithDelimiterString) {
+        if (!numbersWithDelimiterString.startsWith("//"))
+            return numbersWithDelimiterString;
+        else
+            return numbersWithDelimiterString.substring(numbersWithDelimiterString.indexOf("\n") + 1);
+    }
+
+    private static String extractManyDelimiter(final String numbersWithDelimiterString) {
+        if (!numbersWithDelimiterString.startsWith("//"))
+            return DEFAULT_DELIMITERS;
+        else
+            return parseDelimiter(numbersWithDelimiterString);
+    }
+
+    private static String parseDelimiter(String tempStr) {
+        String retDelim = DEFAULT_DELIMITERS;
+
+        for (String r : REGEX_LITERALS) {
+            if (tempStr.contains(r))
+                tempStr = tempStr.replace(r, "\\" + r);
+        }
+        Matcher m = delimiterPattern.matcher(tempStr);
+        while (m.find())
+            retDelim = retDelim + "|" + m.group(1);
+
+        return retDelim;
+    }
+
+    public int checkMultipleDelemiter(String numbers) {
+
+        String delimiter = extractManyDelimiter(numbers);
+
+        String numbersString = parseInputString(numbers);
+
+        return add(numbersString, delimiter);
+    }
+
     public int add(String numbers) {
         String delimiter = ",|\n";
         String numbersWithoutDelimiter = numbers;
