@@ -27,6 +27,6 @@ class StringCalculatorShould {
     @Test
     public final void newLineBetweenNumbersReturnTheirSums() {
         StringCalculator stringCalculator = new StringCalculator();
-        assertEquals(1 + 2 + 3, stringCalculator.add("1\n2,3"));
+        assertEquals(1 + 2, stringCalculator.add("//;\n1;2"));
     }
 }
